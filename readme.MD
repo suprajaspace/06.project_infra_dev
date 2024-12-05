@@ -17,3 +17,42 @@ resource "aws_security_group_rule" "example" {
   ipv6_cidr_blocks  = [aws_vpc.example.ipv6_cidr_block]
   security_group_id = "sg-123456"
 }
+
+main.tf
+
+module "mysql_sg" {
+    source = "git::https://github.com/suprajaspace/05.terraform_aws_security_group.git?ref=main"
+    project_name = var.project_name
+    environment = var.environment
+    sg_name = "mysql"
+    vpc_id = local.vpc_id
+    common_tags = var.common_tags
+    sg_tags = var.mysql_sg_tags
+}
+
+module "backend_sg" {
+    source = "git::https://github.com/suprajaspace/05.terraform_aws_security_group.git?ref=main"
+    project_name = var.project_name
+    environment = var.environment
+    sg_name = "backend"
+    vpc_id = local.vpc_id
+    common_tags = var.common_tags
+    sg_tags = var.backend_sg_tags
+}
+
+module "frontend_sg" {
+    source = "git::https://github.com/suprajaspace/05.terraform_aws_security_group.git?ref=main"
+    project_name = var.project_name
+    environment = var.environment
+    sg_name = "frontend"
+    vpc_id = local.vpc_id
+    common_tags = var.common_tags
+    sg_tags = var.frontend_sg_tags
+}
+
+open source modules with AWS contribution
+
+https://github.com/terraform-aws-modules
+
+https://github.com/terraform-aws-modules/terraform-aws-ec2-instance
+
